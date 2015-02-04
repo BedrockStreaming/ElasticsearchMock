@@ -438,8 +438,6 @@ class Client extends \Elasticsearch\Client
     }
 
     /**
-     * @param string $method
-     *
      * @return array
      */
     public function getMethodCalls()
@@ -494,6 +492,8 @@ class Client extends \Elasticsearch\Client
      * @param string $index
      * @param string $type
      * @param array  $documents
+     *
+     * @return Client
      */
     public function addSearchResult($index, $type, array $documents)
     {
