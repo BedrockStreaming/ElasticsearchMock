@@ -514,7 +514,7 @@ class Client extends \Elasticsearch\Client
                 '_type' => $type,
                 '_id' => $document['id'],
                 '_score' => 1,
-                '_source' => [ $type => $document ]
+                '_source' => $document
             ];
         }
 
