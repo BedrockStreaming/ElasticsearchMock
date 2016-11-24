@@ -8,7 +8,7 @@ Add this line in your `composer.json` :
 
 ```json
 {
-    "require": {
+    "require-dev": {
         "m6web/elasticsearch-mock": "dev-master"
     }
 }
@@ -23,7 +23,7 @@ $ composer update m6web/elasticsearch-mock
 ## Running the tests
 
 ```shell
-$ php composer.phar install --dev
+$ php composer.phar install
 $ ./vendor/bin/atoum -d tests
 ```
 
