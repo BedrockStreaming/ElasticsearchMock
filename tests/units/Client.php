@@ -91,13 +91,11 @@ class Client extends test
                             'hits' => [[
                                 '_index' => "myindex",
                                 '_type' => "mytype",
-                                '_id' => 12,
+                                '_id' => '12',
                                 '_score' => 1,
                                 '_source' => [
-                                    'mytype' => [
-                                        'id' => 12,
-                                        'field' => "value",
-                                    ]
+                                    'id' => '12',
+                                    'field' => "value",
                                 ]
                             ]]
                         ]
