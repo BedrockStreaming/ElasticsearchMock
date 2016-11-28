@@ -2,6 +2,13 @@
 
 namespace M6Web\Component\ElasticsearchMock;
 
+use Elasticsearch\Namespaces\CatNamespace;
+use Elasticsearch\Namespaces\ClusterNamespace;
+use Elasticsearch\Namespaces\IndicesNamespace;
+use Elasticsearch\Namespaces\NodesNamespace;
+use Elasticsearch\Namespaces\SnapshotNamespace;
+use Elasticsearch\Transport;
+
 /**
 * Elasticsearch mock class
 *
@@ -9,39 +16,44 @@ namespace M6Web\Component\ElasticsearchMock;
 class Client extends \Elasticsearch\Client
 {
     /**
-     * @var methods' results
+     * @var mixed Methods' results
      */
-    protected $results = array();
+    protected $results = [];
 
     /**
-     * @var methods' calls
+     * @var mixed Methods' calls
      */
-    protected $calls = array();
+    protected $calls = [];
 
     /**
-     * Client constructor
+     * Client constructor.
      *
-     * @param array $params Array of injectable parameters
+     * @param Transport $transport
+     * @param callable  $endpoint
      */
-    public function __construct($params = array())
+    public function __construct(Transport $transport = null, callable $endpoint = null)
     {
-
+        // Do nothing.
     }
 
     /**
+     * @param array $params
+     *
      * @return array
      */
-    public function info()
+    public function info($params = [])
     {
-        return $this->getMethodResult('info', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
-     * @return boolean
+     * @param array $params
+     *
+     * @return bool
      */
-    public function ping()
+    public function ping($params = [])
     {
-        return $this->getMethodResult('ping', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -51,7 +63,7 @@ class Client extends \Elasticsearch\Client
      */
     public function get($params)
     {
-        return $this->getMethodResult('get', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -61,7 +73,7 @@ class Client extends \Elasticsearch\Client
      */
     public function getSource($params)
     {
-        return $this->getMethodResult('getSource', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -71,7 +83,7 @@ class Client extends \Elasticsearch\Client
      */
     public function delete($params)
     {
-        return $this->getMethodResult('delete', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -79,9 +91,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function deleteByQuery($params = array())
+    public function deleteByQuery($params = [])
     {
-        return $this->getMethodResult('deleteByQuery', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -89,9 +101,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function count($params = array())
+    public function count($params = [])
     {
-        return $this->getMethodResult('count', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -99,9 +111,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function countPercolate($params = array())
+    public function countPercolate($params = [])
     {
-        return $this->getMethodResult('countPercolate', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -111,7 +123,7 @@ class Client extends \Elasticsearch\Client
      */
     public function percolate($params)
     {
-        return $this->getMethodResult('percolate', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -119,9 +131,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function mpercolate($params = array())
+    public function mpercolate($params = [])
     {
-        return $this->getMethodResult('mpercolate', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -129,9 +141,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function termvector($params = array())
+    public function termvectors($params = [])
     {
-        return $this->getMethodResult('termvector', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -139,9 +151,19 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function mtermvectors($params = array())
+    public function termvector($params = [])
     {
-        return $this->getMethodResult('mtermvectors', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function mtermvectors($params = [])
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -151,7 +173,7 @@ class Client extends \Elasticsearch\Client
      */
     public function exists($params)
     {
-        return $this->getMethodResult('exists', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -161,7 +183,7 @@ class Client extends \Elasticsearch\Client
      */
     public function mlt($params)
     {
-        return $this->getMethodResult('mlt', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -169,9 +191,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function mget($params = array())
+    public function mget($params = [])
     {
-        return $this->getMethodResult('mget', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -179,9 +201,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function msearch($params = array())
+    public function msearch($params = [])
     {
-        return $this->getMethodResult('msearch', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -191,7 +213,7 @@ class Client extends \Elasticsearch\Client
      */
     public function create($params)
     {
-        return $this->getMethodResult('create', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -199,9 +221,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function bulk($params = array())
+    public function bulk($params = [])
     {
-        return $this->getMethodResult('bulk', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -211,18 +233,17 @@ class Client extends \Elasticsearch\Client
      */
     public function index($params)
     {
-        return $this->getMethodResult('index', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
-
 
     /**
      * @param array $params
      *
      * @return array
      */
-    public function suggest($params = array())
+    public function suggest($params = [])
     {
-        return $this->getMethodResult('suggest', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -232,7 +253,7 @@ class Client extends \Elasticsearch\Client
      */
     public function explain($params)
     {
-        return $this->getMethodResult('explain', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -240,9 +261,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function search($params = array())
+    public function search($params = [])
     {
-        return $this->getMethodResult('search', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -250,9 +271,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function searchShards($params = array())
+    public function searchExists($params = [])
     {
-        return $this->getMethodResult('searchShards', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -260,9 +281,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function searchTemplate($params = array())
+    public function searchShards($params = [])
     {
-        return $this->getMethodResult('searchTemplate', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -270,9 +291,9 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function scroll($params = array())
+    public function searchTemplate($params = [])
     {
-        return $this->getMethodResult('scroll', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -280,9 +301,19 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function clearScroll($params = array())
+    public function scroll($params = [])
     {
-        return $this->getMethodResult('clearScroll', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function clearScroll($params = [])
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -292,7 +323,7 @@ class Client extends \Elasticsearch\Client
      */
     public function update($params)
     {
-        return $this->getMethodResult('update', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -302,7 +333,7 @@ class Client extends \Elasticsearch\Client
      */
     public function getScript($params)
     {
-        return $this->getMethodResult('getScript', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -312,7 +343,7 @@ class Client extends \Elasticsearch\Client
      */
     public function deleteScript($params)
     {
-        return $this->getMethodResult('deleteScript', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -322,7 +353,7 @@ class Client extends \Elasticsearch\Client
      */
     public function putScript($params)
     {
-        return $this->getMethodResult('putScript', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -332,7 +363,7 @@ class Client extends \Elasticsearch\Client
      */
     public function getTemplate($params)
     {
-        return $this->getMethodResult('getTemplate', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -342,7 +373,7 @@ class Client extends \Elasticsearch\Client
      */
     public function deleteTemplate($params)
     {
-        return $this->getMethodResult('deleteTemplate', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -352,7 +383,47 @@ class Client extends \Elasticsearch\Client
      */
     public function putTemplate($params)
     {
-        return $this->getMethodResult('putTemplate', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function fieldStats($params = [])
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function reindex($params = [])
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function updateByQuery($params = [])
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function renderSearchTemplate($params = [])
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -362,7 +433,7 @@ class Client extends \Elasticsearch\Client
      */
     public function indices()
     {
-        return $this->getMethodResult('indices', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -372,7 +443,7 @@ class Client extends \Elasticsearch\Client
      */
     public function cluster()
     {
-        return $this->getMethodResult('cluster', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
 
@@ -383,7 +454,7 @@ class Client extends \Elasticsearch\Client
      */
     public function nodes()
     {
-        return $this->getMethodResult('nodes', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
 
@@ -394,9 +465,8 @@ class Client extends \Elasticsearch\Client
      */
     public function snapshot()
     {
-        return $this->getMethodResult('snapshot', func_get_args());
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
-
 
     /**
      * Operate on the Cat namespace of commands
@@ -405,7 +475,17 @@ class Client extends \Elasticsearch\Client
      */
     public function cat()
     {
-       return $this->getMethodResult('cat', func_get_args());
+       return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * Operate on the Cat namespace of commands
+     *
+     * @return CatNamespace
+     */
+    public function tasks()
+    {
+       return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**
@@ -466,7 +546,7 @@ class Client extends \Elasticsearch\Client
      */
     public function resetCalls()
     {
-        $this->calls = array();
+        $this->calls = [];
 
         return $this;
     }
@@ -528,7 +608,7 @@ class Client extends \Elasticsearch\Client
      */
     public function resetResults()
     {
-        $this->results = array();
+        $this->results = [];
 
         return $this;
     }
