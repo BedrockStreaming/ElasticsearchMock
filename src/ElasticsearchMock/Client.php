@@ -26,12 +26,13 @@ class Client extends \Elasticsearch\Client
     protected $calls = [];
 
     /**
-     * Client constructor.
+     * Client constructor
      *
-     * @param Transport $transport
-     * @param callable  $endpoint
+     * @param Transport           $transport
+     * @param callable            $endpoint
+     * @param AbstractNamespace[] $registeredNamespaces
      */
-    public function __construct(Transport $transport = null, callable $endpoint = null)
+    public function __construct(Transport $transport = null, callable $endpoint = null, array $registeredNamespaces = [])
     {
         // Do nothing.
     }
@@ -151,16 +152,6 @@ class Client extends \Elasticsearch\Client
      *
      * @return array
      */
-    public function termvector($params = [])
-    {
-        return $this->getMethodResult(__FUNCTION__, func_get_args());
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return array
-     */
     public function mtermvectors($params = [])
     {
         return $this->getMethodResult(__FUNCTION__, func_get_args());
@@ -172,16 +163,6 @@ class Client extends \Elasticsearch\Client
      * @return array
      */
     public function exists($params)
-    {
-        return $this->getMethodResult(__FUNCTION__, func_get_args());
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return array
-     */
-    public function mlt($params)
     {
         return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
@@ -262,16 +243,6 @@ class Client extends \Elasticsearch\Client
      * @return array
      */
     public function search($params = [])
-    {
-        return $this->getMethodResult(__FUNCTION__, func_get_args());
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return array
-     */
-    public function searchExists($params = [])
     {
         return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
@@ -479,6 +450,16 @@ class Client extends \Elasticsearch\Client
     }
 
     /**
+     * Operate on the Ingest namespace of commands
+     *
+     * @return IngestNamespace
+     */
+    public function ingest()
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
      * Operate on the Cat namespace of commands
      *
      * @return CatNamespace
@@ -486,6 +467,20 @@ class Client extends \Elasticsearch\Client
     public function tasks()
     {
        return $this->getMethodResult(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * Catchall for registered namespaces
+     *
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return Object
+     * @throws BadMethodCallException if the namespace cannot be found
+     */
+    public function __call($name, $arguments)
+    {
+        return $this->getMethodResult(__FUNCTION__, func_get_args());
     }
 
     /**

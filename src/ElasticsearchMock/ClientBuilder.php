@@ -37,8 +37,8 @@ class ClientBuilder extends \Elasticsearch\ClientBuilder
         return $builder->build();
     }
 
-    protected function instantiate(\Elasticsearch\Transport $transport, callable $endpoint)
+    protected function instantiate(\Elasticsearch\Transport $transport, callable $endpoint, array $registeredNamespaces)
     {
-        return new Client($transport, $endpoint);
+        return new Client($transport, $endpoint, $registeredNamespaces);
     }
 }
