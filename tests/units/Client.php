@@ -31,7 +31,7 @@ class Client extends test
             $this
                 ->if($calls[$method][] = [[uniqid()]])
                 ->executeOnFailure(function() use ($method) { echo "Error method $method"; })
-                    ->string($esMock->$method([$calls[$method][0][0][0]]))
+                    ->string($esMock->$method(...$calls[$method][0]))
                         ->isEqualTo($results[$method])
                     ->exception(
                         function() use ($esMock, $method) {
@@ -63,6 +63,39 @@ class Client extends test
             ->if($esMock)
             ->array($esMock->getMethodCalls())
                 ->isEqualTo(array_fill_keys($methodList, []))
+        ;
+    }
+
+    public function testCall()
+    {
+        $this
+            ->given(
+                $esMock = new ElasticsearchMock\Client(),
+                $esMock->addResult('__call', true),
+                $esMock->addResult('__call', true)
+            )
+            ->if($esMock->__call('name', 'arguments'))
+            ->then
+                ->array($esMock->getNextMethodCalls('__call'))
+                    ->isEqualTo(
+                        [
+                            'name',
+                            'arguments'
+                        ]
+                    )
+            ->and
+            ->if($esMock->unownedMethod('argument1', 'argument2'))
+            ->then
+                ->array($esMock->getNextMethodCalls('__call'))
+                    ->isEqualTo(
+                    [
+                        'unownedMethod',
+                        [
+                            'argument1',
+                            'argument2',
+                        ]
+                    ]
+            )
         ;
     }
 
@@ -116,7 +149,7 @@ class Client extends test
     protected function getClientMethods()
     {
         $excludeMethods = [
-            '__construct', 'extractArgument',
+            '__construct', 'extractArgument', '__call',
             'addResult', 'addSearchResult', 'resetResults',
             'getMethodCalls', 'getNextMethodCalls', 'resetCalls'
         ];
